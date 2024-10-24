@@ -2,6 +2,7 @@ package com.example.lab8;
 
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 
 //import org.junit.Before;
@@ -37,10 +38,9 @@ public class CustomListTest {
     }
 
     /**
-     * get the size of the list
-     * increase the list by adding a new city
-     * check if our current size matches the initial size
-     plus one
+     * check to make sure a city can not be found
+     * add the new city to the list
+     * check if the new city is now found in the list
      */
     @Test
     public void hasCityTest(){
@@ -49,6 +49,26 @@ public class CustomListTest {
         assertEquals(list.hasCity(mockCity), false);
         list.addCity(mockCity);
         assertEquals(list.hasCity(mockCity), true);
+    }
+
+    /**
+     * check to make sure a city can not be found
+     * test to throw illegal argument exception when the city is not in the list
+     * add the new city to the list
+     * check if the new city is now found in the list
+     * remove the city from the list
+     * check to see that the city is now not in the list
+     */
+    @Test
+    public void deleteCityTest(){
+        list = MockCityList();
+        City mockCity = new City("Estevan", "SK");
+        assertEquals(list.hasCity(mockCity), false);
+        assertThrows(IllegalArgumentException.class, () -> {list.deleteCity(mockCity);});
+        list.addCity(mockCity);
+        assertEquals(list.hasCity(mockCity), true);
+        list.deleteCity(mockCity);
+        assertEquals(list.hasCity(mockCity), false);
     }
 
 }
